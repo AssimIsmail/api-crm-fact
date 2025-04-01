@@ -19,6 +19,7 @@ Route::middleware(['auth:api', 'isAdminCentral'])->group(function () {
         Route::prefix('{utilisateur_id}')->group(function () {
             Route::get('/', [UtilisateurController::class, 'get_utilisateur'])->name('utilisateur');
             Route::post('/', [UtilisateurController::class, 'update_utilisateur'])->name('update.utilisateur');
+            Route::post('/change-password', [UtilisateurController::class, 'change_password'])->name('change_password.utilisateur');
         });
     });
 });

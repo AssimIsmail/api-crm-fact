@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\DashboardCentral;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DashboardCentral\Utilisateur\ChangePasswordRequest;
 use App\Http\Requests\DashboardCentral\Utilisateur\CreateUtilisateurRequest;
 use App\Http\Requests\DashboardCentral\Utilisateur\UpdateUtilisateurRequest;
 use App\Services\DashboardCentral\UtilisateurService;
@@ -64,6 +65,22 @@ class UtilisateurController extends Controller
             $this->utilisateurService->updateUtilisateur($utilisateur,$data);
             return response()->json([
                 'message' => 'L\'utilisateur a été mise à jour avec succès.',
+            ], 200);
+        }catch(Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+    public function  change_password ($utilisateur_id, ChangePasswordRequest $request){
+        try{
+            $data = $request->validated();
+            $utilisateur = $this->utilisateurService->getUtilisateur($utilisateur_id);
+            $this->utilisateurService->changePassword(
+                $utilisateur,
+                $data['current_password'],
+                $data['new_password']
+            );
+            return response()->json([
+                'message' => 'Le mot de passe  a été mise à jour avec succès.',
             ], 200);
         }catch(Exception $e){
             return response()->json(['error' => $e->getMessage()]);

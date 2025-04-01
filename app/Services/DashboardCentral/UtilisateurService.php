@@ -5,7 +5,7 @@ namespace App\Services\DashboardCentral;
 use App\Models\Utilisateur;
 use App\Services\FilterService;
 use Exception;
-
+use Illuminate\Support\Facades\Hash;
 
 class UtilisateurService
 {
@@ -67,6 +67,18 @@ public function getUtilisateur($utilisateur_id){
             return $utilisateur;
         }catch(Exception $e){
             throw new Exception("Une erreur est survenue lors de la mise à jour de l\'utilisateur.");
+        }
+    }
+    public function changePassword ($utilisateur, $current_password, $new_password){
+        try{
+            if (!Hash::check($current_password, $utilisateur->password)) {
+                throw new Exception('Le mot de passe actuel est incorrect.');
+            }
+            $utilisateur->password = Hash::make($new_password);
+            $utilisateur->save();
+            return $utilisateur;
+        }catch(Exception $e){
+            throw new Exception("Une erreur est survenue lors de la mise à jour du mot de passe.");
         }
     }
 }
