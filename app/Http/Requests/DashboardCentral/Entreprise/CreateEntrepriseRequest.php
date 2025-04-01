@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\DashboardCentral;
+namespace App\Http\Requests\DashboardCentral\Entreprise;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UpdateEntrepriseRequest extends FormRequest
+class CreateEntrepriseRequest extends FormRequest
 {
     /**
      * Détermine si l'utilisateur est autorisé à faire cette requête.
@@ -27,14 +27,13 @@ class UpdateEntrepriseRequest extends FormRequest
             'phone' => 'required|string|regex:/^\+?[0-9]{10,15}$/',
             'address' => 'nullable|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'ice' => 'required|string|max:20|unique:entreprises,ice,' . $this->route('entreprise_id'),
-            'email' => 'required|email|unique:entreprises,email,' . $this->route('entreprise_id'),
+            'ice' => 'required|string|max:20|unique:entreprises,ice',
+            'email' => 'required|email|unique:entreprises,email',
+            'status' => 'required|boolean',
             'web_site' => 'nullable|url|max:255',
             'slogan' => 'nullable|string|max:255',
-            // 'status' => 'required|boolean',
         ];
     }
-
 
     /**
      * Messages d'erreur personnalisés pour chaque règle de validation.
@@ -69,19 +68,15 @@ class UpdateEntrepriseRequest extends FormRequest
             'email.email' => 'L\'adresse email doit être valide.',
             'email.unique' => 'Cette adresse email est déjà utilisée.',
 
+            'status.required' => 'Le statut est obligatoire.',
+            'status.boolean' => 'Le statut doit être vrai ou faux.',
+
             'web_site.url' => 'Le site web doit être une URL valide.',
             'web_site.max' => 'L\'URL du site web ne doit pas dépasser 255 caractères.',
-
             'slogan.string' => 'Le slogan doit être une chaîne de caractères.',
             'slogan.max' => 'Le slogan ne doit pas dépasser 255 caractères.',
-            // 'status.required' => 'Le statut est obligatoire.',
-            // 'status.boolean' => 'Le statut doit être vrai ou faux.',
         ];
     }
-
-    /**
-     * Personnaliser la réponse en cas d'échec de validation.
-     */
     protected function failedValidation(Validator $validator)
     {
         $errors = $validator->errors();

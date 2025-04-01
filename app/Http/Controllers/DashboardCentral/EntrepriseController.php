@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\DashboardCentral;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DashboardCentral\CreateEntrepriseRequest;
-use App\Http\Requests\DashboardCentral\UpdateEntrepriseRequest;
-use App\Http\Requests\DashboardCentral\UpdateEntrepriseStatusRequest;
+use App\Http\Requests\DashboardCentral\Entreprise\CreateEntrepriseRequest;
+use App\Http\Requests\DashboardCentral\Entreprise\UpdateEntrepriseRequest;
+use App\Http\Requests\DashboardCentral\Entreprise\UpdateEntrepriseStatusRequest;
 use App\Services\DashboardCentral\EntrepriseService;
 use App\Utils\PaginationHelper;
 use Exception;

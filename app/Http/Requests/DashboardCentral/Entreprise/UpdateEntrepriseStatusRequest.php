@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\DashboardCentral;
+namespace App\Http\Requests\DashboardCentral\Entreprise;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,7 +24,7 @@ class UpdateEntrepriseStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|boolean', 
+            'status' => 'required|boolean',
         ];
     }
 }
