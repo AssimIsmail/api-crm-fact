@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\DashboardCentral;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DashboardCentral\EntrepriseRequest;
+use App\Http\Requests\DashboardCentral\CreateEntrepriseRequest;
+use App\Http\Requests\DashboardCentral\UpdateEntrepriseRequest;
 use App\Services\DashboardCentral\EntrepriseService;
 use App\Utils\PaginationHelper;
 use Exception;
@@ -43,7 +44,7 @@ class EntrepriseController extends Controller
             return response()->json(['error' => $e->getMessage()]);
         }
     }
-    public function create_entreprise(EntrepriseRequest $request){
+    public function create_entreprise(CreateEntrepriseRequest $request){
         try{
             $data = $request->validated();
             if ($request->hasFile('logo')) {
@@ -54,6 +55,22 @@ class EntrepriseController extends Controller
             return response()->json([
                 'message' => 'Entreprise créée avec succès.',
             ], 201);
+        }catch(Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+    public function update_entreprise(UpdateEntrepriseRequest $request ,$entreprise_id){
+        try{
+            $data = $request->validated();
+            $entreprise = $this->entrepriseService->getEntreprise($entreprise_id);
+            if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+                $logoPath = $this->entrepriseService->storeLogo($request->file('logo'));
+                $data['logo'] = $logoPath;
+            }
+            $this->entrepriseService->updateEntreprise($entreprise , $data);
+            return response()->json([
+                'message' => 'L\'entreprise a été mise à jour avec succès.',
+            ], 200);
         }catch(Exception $e){
             return response()->json(['error' => $e->getMessage()]);
         }

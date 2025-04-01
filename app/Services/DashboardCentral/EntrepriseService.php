@@ -77,4 +77,13 @@ class EntrepriseService
             throw new Exception("Une erreur est survenue lors de la création de l\'entreprise");
         }
     }
+    public function updateEntreprise($entreprise , $data){
+        try{
+            $entreprise->update($data);
+            return $entreprise;
+         return $entreprise;
+        }catch(Exception $e){
+             throw new Exception("Une erreur est survenue lors de la mise à jour de l\'entreprise.");
+        }
+    }
 }
