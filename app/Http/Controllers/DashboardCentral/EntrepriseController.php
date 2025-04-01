@@ -5,6 +5,7 @@ namespace App\Http\Controllers\DashboardCentral;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DashboardCentral\CreateEntrepriseRequest;
 use App\Http\Requests\DashboardCentral\UpdateEntrepriseRequest;
+use App\Http\Requests\DashboardCentral\UpdateEntrepriseStatusRequest;
 use App\Services\DashboardCentral\EntrepriseService;
 use App\Utils\PaginationHelper;
 use Exception;
@@ -73,6 +74,19 @@ class EntrepriseController extends Controller
             ], 200);
         }catch(Exception $e){
             return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+    public function update_status(UpdateEntrepriseStatusRequest $request, $entreprise_id)
+    {
+        try {
+            $status = $request->validated()['status'];
+            $entreprise = $this->entrepriseService->getEntreprise($entreprise_id);
+            $this->entrepriseService->updateStatus($entreprise, $status);
+            return response()->json([
+                'message' => 'Le statut de l\'entreprise a été mis à jour avec succès.',
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 }

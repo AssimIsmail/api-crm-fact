@@ -86,4 +86,13 @@ class EntrepriseService
              throw new Exception("Une erreur est survenue lors de la mise à jour de l\'entreprise.");
         }
     }
+    public function updateStatus($entreprise, bool $status): bool
+    {
+        try {
+            $entreprise->status = $status;
+            return $entreprise->save();  
+        } catch (Exception $e) {
+            throw new Exception("Erreur lors de la mise à jour du statut de l'entreprise.");
+        }
+    }
 }

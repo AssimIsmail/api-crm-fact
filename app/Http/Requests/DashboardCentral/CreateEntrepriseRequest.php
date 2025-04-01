@@ -30,6 +30,8 @@ class CreateEntrepriseRequest extends FormRequest
             'ice' => 'required|string|max:20|unique:entreprises,ice',
             'email' => 'required|email|unique:entreprises,email',
             'status' => 'required|boolean',
+            'web_site' => 'nullable|url|max:255',
+            'slogan' => 'nullable|string|max:255',
         ];
     }
 
@@ -68,6 +70,11 @@ class CreateEntrepriseRequest extends FormRequest
 
             'status.required' => 'Le statut est obligatoire.',
             'status.boolean' => 'Le statut doit être vrai ou faux.',
+
+            'web_site.url' => 'Le site web doit être une URL valide.',
+            'web_site.max' => 'L\'URL du site web ne doit pas dépasser 255 caractères.',
+            'slogan.string' => 'Le slogan doit être une chaîne de caractères.',
+            'slogan.max' => 'Le slogan ne doit pas dépasser 255 caractères.',
         ];
     }
     protected function failedValidation(Validator $validator)

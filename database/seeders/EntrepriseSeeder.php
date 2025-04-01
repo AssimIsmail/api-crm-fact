@@ -19,6 +19,8 @@ class EntrepriseSeeder extends Seeder
             'address' => '123 Rue de l\'Entreprise, Paris',
             'logo' => 'logo.png',
             'ice' => 'AB123456789',
+            'web_site' => 'https://chatgpt.com/',
+            'slogan' => 'L’innovation au service de votre entreprise',
             'email' => 'contact@crm-solutions.fr',
             'status' => true,
         ]);

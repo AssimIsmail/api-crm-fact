@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('phone');
             $table->string('address');
             $table->string('logo')->nullable();
-            $table->string('ice');
+            $table->string('ice')->unique();
+            $table->string('web_site');
+            $table->string('slogan');
             $table->string('email')->unique();
             $table->boolean('status');
             $table->softDeletes();

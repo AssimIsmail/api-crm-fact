@@ -19,6 +19,8 @@ class Entreprise extends Model
         'ice',
         'email',
         'status',
+        'web_site',
+        'slogan'
     ];
 
     public function utilisateurs()
