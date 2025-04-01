@@ -5,6 +5,9 @@ namespace App\Services\DashboardCentral;
 use App\Models\Entreprise;
 use App\Services\FilterService;
 use Exception;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Str;
+
 
 class EntrepriseService
 {
@@ -50,6 +53,28 @@ class EntrepriseService
             return $entreprise;
         }catch(Exception $e){
             throw new Exception("L'entreprise est introuvable.");
+        }
+    }
+    public function storeLogo($logo): string
+    {
+        try {
+            if (!$logo instanceof UploadedFile) {
+                throw new Exception('Le fichier fourni n\'est pas valide.');
+            }
+            $fileName = Str::random(40) . '.' . $logo->getClientOriginalExtension();
+
+            $path = $logo->storeAs('logos', $fileName, 'public');
+            return $path;
+        } catch (Exception $e) {
+            throw new Exception("Erreur lors de l'enregistrement du logo.  " );
+        }
+    }
+    public function createEntreprise($entreprise){
+        try{
+            $entreprise = Entreprise::create($entreprise);
+            return $entreprise;
+        }catch(Exception $e){
+            throw new Exception("Une erreur est survenue lors de la création de l\'entreprise");
         }
     }
 }
