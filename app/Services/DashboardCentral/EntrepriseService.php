@@ -90,9 +90,17 @@ class EntrepriseService
     {
         try {
             $entreprise->status = $status;
-            return $entreprise->save();  
+            return $entreprise->save();
         } catch (Exception $e) {
             throw new Exception("Erreur lors de la mise à jour du statut de l'entreprise.");
+        }
+    }
+    public function deleteEntreprise ($entreprise ){
+        try{
+            $entreprise_deleted = $entreprise->delete();
+            return $entreprise_deleted ;
+        }catch(Exception $e){
+             throw new Exception("L\'entreprise a été supprimée avec succès.");
         }
     }
 }

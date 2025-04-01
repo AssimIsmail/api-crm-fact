@@ -89,4 +89,15 @@ class EntrepriseController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+    public function delete_entreprise ($entreprise_id){
+        try{
+            $entreprise = $this->entrepriseService->getEntreprise($entreprise_id);
+            $this->entrepriseService->deleteEntreprise($entreprise ,$entreprise_id );
+            return response()->json([
+                'message' => 'L\'entreprise a été supprimée avec succès.',
+            ], 200);
+        }catch(Exception $e){
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }
