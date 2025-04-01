@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('role');
             $table->string('email')->unique();
-            $table->string('pays');
+            $table->string('pays')->nullable();
             $table->string('password');
             $table->boolean('status');
             $table->timestamp('last_active')->nullable();

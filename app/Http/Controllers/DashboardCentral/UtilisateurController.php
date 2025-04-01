@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\DashboardCentral;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DashboardCentral\Utilisateur\CreateUtilisateurRequest;
 use App\Services\DashboardCentral\UtilisateurService;
 use App\Utils\PaginationHelper;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class UtilisateurController extends Controller
 {
@@ -38,6 +40,18 @@ class UtilisateurController extends Controller
             return response()->json([
                 'utilisateur' => $utilisateur,
             ], JsonResponse::HTTP_OK);
+        }catch(Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+    public function create_utilisateur (CreateUtilisateurRequest $request){
+        try{
+            $utilisateur = $request->validated();
+            $utilisateur['password'] = Hash::make($utilisateur['password']);
+            $this->utilisateurService->createUtilisateur($utilisateur);
+            return response()->json([
+                'message' => 'Utilisateur créée avec succès.',
+            ], 201);
         }catch(Exception $e){
             return response()->json(['error' => $e->getMessage()]);
         }

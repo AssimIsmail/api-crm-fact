@@ -53,4 +53,12 @@ public function getUtilisateur($utilisateur_id){
         throw new Exception("Utilisateur non trouvé.");
     }
 }
+    public function createUtilisateur($utilisateur){
+        try{
+            $utilisateur = Utilisateur::create($utilisateur);
+            return $utilisateur;
+        }catch(Exception $e){
+            throw new Exception("Erreur lors de la création de l'utilisateur  ." . $e->getMessage());
+        }
+    }
 }
