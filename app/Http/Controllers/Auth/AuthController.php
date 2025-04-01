@@ -34,7 +34,11 @@ class AuthController extends Controller
                     'error' => 'Votre compte n\'est pas activé. Veuillez contacter le support pour obtenir de l\'aide.'
                 ], JsonResponse::HTTP_FORBIDDEN);
             }
-
+            if ($user->entreprise && !$user->entreprise->status) {
+                return response()->json([
+                    'error' => 'L\'entreprise associée à votre compte est désactivée. Veuillez contacter le support.'
+                ], JsonResponse::HTTP_FORBIDDEN);
+            }
             // Mettre à jour la dernière activité de l'utilisateur
             $user->update(['last_active' => now()]);
 
