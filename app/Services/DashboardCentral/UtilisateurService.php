@@ -81,4 +81,13 @@ public function getUtilisateur($utilisateur_id){
             throw new Exception("Une erreur est survenue lors de la mise à jour du mot de passe.");
         }
     }
+    public function changeStatus ($utilisateur ,$status){
+        try{
+            $utilisateur->status = $status;
+            $utilisateur->save();
+            return $utilisateur;
+        }catch(Exception $e){
+            throw new Exception("Une erreur est survenue lors de la mise à jour du status.");
+        }
+    }
 }
