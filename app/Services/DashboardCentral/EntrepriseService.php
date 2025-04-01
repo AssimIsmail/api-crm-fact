@@ -44,5 +44,12 @@ class EntrepriseService
             throw new Exception($e->getMessage());
         }
     }
-
+    public function getEntreprise($entreprise_id){
+        try{
+            $entreprise = Entreprise::findOrFail($entreprise_id);
+            return $entreprise;
+        }catch(Exception $e){
+            throw new Exception("L'entreprise est introuvable.");
+        }
+    }
 }

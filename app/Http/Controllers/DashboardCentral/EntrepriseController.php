@@ -32,4 +32,14 @@ class EntrepriseController extends Controller
 
         }
     }
+    public function get_entreprise($entreprise_id){
+        try{
+            $entreprise = $this->entrepriseService->getEntreprise($entreprise_id);
+            return response()->json([
+                'entreprise' => $entreprise,
+            ], JsonResponse::HTTP_OK);
+        }catch(Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
 }
