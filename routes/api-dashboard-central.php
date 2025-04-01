@@ -18,6 +18,7 @@ Route::middleware(['auth:api', 'isAdminCentral'])->group(function () {
         Route::post('/', [UtilisateurController::class, 'create_utilisateur'])->name('create.utilisateur');
         Route::prefix('{utilisateur_id}')->group(function () {
             Route::get('/', [UtilisateurController::class, 'get_utilisateur'])->name('utilisateur');
+            Route::post('/', [UtilisateurController::class, 'update_utilisateur'])->name('update.utilisateur');
         });
     });
 });

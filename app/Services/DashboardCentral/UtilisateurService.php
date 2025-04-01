@@ -61,4 +61,12 @@ public function getUtilisateur($utilisateur_id){
             throw new Exception("Erreur lors de la création de l'utilisateur  ." . $e->getMessage());
         }
     }
+    public function updateUtilisateur ($utilisateur,$data ){
+        try{
+            $utilisateur->update($data);
+            return $utilisateur;
+        }catch(Exception $e){
+            throw new Exception("Une erreur est survenue lors de la mise à jour de l\'utilisateur.");
+        }
+    }
 }

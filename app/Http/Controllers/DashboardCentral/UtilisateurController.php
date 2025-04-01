@@ -4,6 +4,7 @@ namespace App\Http\Controllers\DashboardCentral;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DashboardCentral\Utilisateur\CreateUtilisateurRequest;
+use App\Http\Requests\DashboardCentral\Utilisateur\UpdateUtilisateurRequest;
 use App\Services\DashboardCentral\UtilisateurService;
 use App\Utils\PaginationHelper;
 use Exception;
@@ -52,6 +53,18 @@ class UtilisateurController extends Controller
             return response()->json([
                 'message' => 'Utilisateur créée avec succès.',
             ], 201);
+        }catch(Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
+    public function update_utilisateur ($utilisateur_id, UpdateUtilisateurRequest $request){
+        try{
+            $data = $request->validated();
+            $utilisateur = $this->utilisateurService->getUtilisateur($utilisateur_id);
+            $this->utilisateurService->updateUtilisateur($utilisateur,$data);
+            return response()->json([
+                'message' => 'L\'utilisateur a été mise à jour avec succès.',
+            ], 200);
         }catch(Exception $e){
             return response()->json(['error' => $e->getMessage()]);
         }
