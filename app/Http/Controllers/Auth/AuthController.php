@@ -46,7 +46,7 @@ class AuthController extends Controller
             $token = JWTAuth::fromUser($user);
 
             // Créer un cookie pour stocker le token
-            $cookie = cookie('token', $token, 1440, '/', '.127.0.0.1', false, true);
+            $cookie = cookie('token', $token, 1440, '/', '.crm-facturation.com', false, true, false, 'None');
 
             // Retourner les informations de l'utilisateur et le cookie
             return response()->json([
