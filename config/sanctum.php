@@ -16,10 +16,11 @@ return [
     */
 
     'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
-        '%s%s',
-        'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1',
-        Sanctum::currentApplicationUrlWithPort()
-    ))),
+    '%s,%s',
+    'frontend.crm-facturation.com:5173', // Domaine sans protocole ni slash à la fin
+    Sanctum::currentApplicationUrlWithPort() // Ajoute l'URL de l'application avec le port
+))),
+
 
     /*
     |--------------------------------------------------------------------------

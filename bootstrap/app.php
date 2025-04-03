@@ -14,10 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
         Route::prefix('api/session')->group(function () {
             require __DIR__.'/../routes/api-session.php';  // Vérifie que ce fichier existe
         });
-
-        // Inclure d'autres routes si nécessaire
-        require __DIR__.'/../routes/web.php';
-        require __DIR__.'/../routes/console.php';
     })
     ->withMiddleware(function (Middleware $middleware) {
         // Enregistrement du middleware personnalisé

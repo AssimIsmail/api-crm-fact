@@ -46,7 +46,7 @@ class AuthController extends Controller
             $token = JWTAuth::fromUser($user);
 
             // Créer un cookie pour stocker le token
-            $cookie = cookie('token', $token, 1440, '/', '.crm-facturation.com', false, true, false, 'None');
+            $cookie = cookie('token', $token, 1440, '/', '.crm-facturation.com', false, true);
 
             // Retourner les informations de l'utilisateur et le cookie
             return response()->json([
@@ -61,14 +61,10 @@ class AuthController extends Controller
         }
     }
 
-    // Fonction pour récupérer les détails de l'utilisateur actuellement connecté
     public function me(Request $request)
     {
         try {
-            // Récupérer l'utilisateur authentifié à partir du token JWT
             $user = JWTAuth::parseToken()->authenticate();
-
-            // Mettre à jour la dernière activité
             $user->update(['last_active' => now()]);
 
             // Retourner les informations de l'utilisateur
@@ -120,7 +116,7 @@ class AuthController extends Controller
             JWTAuth::invalidate($token);
 
             // Supprimer le cookie contenant le token
-            $cookie = cookie('token', null, -1, '/', '.127.0.0.1', false, true);
+            $cookie = cookie('token', null, -1, '/', '.crm-facturation.com', false, true);
 
             return response()->json([
                 'message' => 'Déconnexion réussie. Si vous avez besoin d\'aide, contactez le support.'
