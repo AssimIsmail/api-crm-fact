@@ -21,8 +21,7 @@ class UtilisateurService
         try {
             $allowedFilters = ['full_name', 'email', 'status', 'role', 'entreprise_id'];
             $filters = $this->filterService->getFilters($allowedFilters);
-
-            $query = Utilisateur::query();
+            $query = Utilisateur::with('entreprise');
 
             foreach ($filters as $key => $value) {
                 if ($key === 'full_name') {
