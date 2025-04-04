@@ -22,13 +22,13 @@ class UpdateEntrepriseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'nullable|string|max:255',
             'localisation' => 'nullable|string|max:255',
-            'phone' => 'required|string|regex:/^\+?[0-9]{10,15}$/',
+            'phone' => 'nullable|string|regex:/^\+?[0-9]{10,15}$/',
             'address' => 'nullable|string|max:255',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'ice' => 'required|string|max:20|unique:entreprises,ice,' . $this->route('entreprise_id'),
-            'email' => 'required|email|unique:entreprises,email,' . $this->route('entreprise_id'),
+            'ice' => 'nullable|string|max:20|unique:entreprises,ice,' . $this->route('entreprise_id'),
+            'email' => 'nullable|email|unique:entreprises,email,' . $this->route('entreprise_id'),
             'web_site' => 'nullable|url|max:255',
             'slogan' => 'nullable|string|max:255',
             // 'status' => 'required|boolean',
