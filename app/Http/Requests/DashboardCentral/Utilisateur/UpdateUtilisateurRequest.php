@@ -20,12 +20,12 @@ class UpdateUtilisateurRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'entreprise_id' => 'required|integer|exists:entreprises,id',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'role' => 'required|string',
-            'email' => 'required|string|email|unique:utilisateurs,email,' . $this->route('utilisateur_id'),
-            'status' => 'required|boolean', 
+            'entreprise_id' => 'nullable|integer|exists:entreprises,id',
+            'first_name' => 'nullable|string|max:255',
+            'last_name' => 'nullable|string|max:255',
+            'role' => 'nullable|string',
+            'email' => 'nullable|string|email|unique:utilisateurs,email,' . $this->route('utilisateur_id'),
+            'status' => 'nullable|boolean',
         ];
     }
 
